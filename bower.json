@@ -1,0 +1,38 @@
+{
+    "name": "fcoo-modal-form",
+    "version": "0.0.0",
+    "homepage": "https://github.com/FCOO/fcoo-modal-form",
+    "authors": [
+        "Niels Holt"
+    ],
+    "description": "",
+    "main": [
+        "dist/fcoo-modal-form.js",
+        "dist/fcoo-modal-form.css"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/FCOO/fcoo-modal-form.git"
+    },
+    "dependencies": {
+        "jquery": "latest",
+        "fcoo-form-validation": "FCOO/fcoo-form-validation#^0.8.2",
+        "jquery-bootstrap": "fcoo/jquery-bootstrap#^1.0.0"
+    },
+    "devDependencies": {
+        "bourbon": "latest",
+        "modernizr-mixin": "latest",
+        "mathsass": "latest"
+    },
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "moduleType": [
+        "es6"
+    ]
+}

@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="da" style="font-size: 100%">
+<head>
+	<title>fcoo.dk - fcoo-formValidation - Demo</title>
+	<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta http-equiv='x-dns-prefetch-control' content='on'>
+
+	<meta name='copyright' content='FCOO'>
+	<meta name='owner' content='FCOO'>
+
+  <link  href="bower_components.css" rel="stylesheet">
+  <link  href="../src/fcoo-formValidation.css" rel="stylesheet">
+      <link  href="bootstrap.css" rel="stylesheet">
+    <link  href="formValidation.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+
+
+	<script src="bower_components.js"></script>
+	<script src="../src/fcoo-formValidation.js"></script>
+
+    <script src="formValidation.js"></script>
+    <script src="bootstrap4.js"></script>
+
+	<script>
+$(function() {
+    $('#formTest').formValidation({
+        framework: 'bootstrap4',
+        autoFocus: false,
+button: {
+    // The submit buttons selector
+    selector: '[type="submit"]:not([formnovalidate])', //TODO i modal: Select button outside form
+
+    // The disabled class
+    disabled: ''
+
+
+},
+
+   icon: {
+//HER          valid: 'fa fa-check',
+//HER          invalid: 'fa fa-times',
+//HER          validating: 'fa fa-refresh',
+//       feedback: '', //'_form-control-feedback'
+            //      valid: 'fa fa-check',
+            //      invalid: 'fa fa-times',
+            //      validating: 'fa fa-refresh',
+            //      feedback: 'form-control-feedback' <-
+    },
+
+//live: String — Live validating mode. Can be one of three values:
+
+//live: 'enabled', // default	The plugin validates fields as soon as they are changed
+//live: 'disabled', // Disable the live validating. The error messages are only shown after the form is submitted
+live: 'submitted', // The live validating is enabled after the form is submitted
+
+
+verbose: false,
+//err: {
+//    clazz: 'HER_form-control-feedback',
+//},
+
+
+        fields: {
+            TEST_SELECT: {
+                validators: {
+                    notEmpty: {
+                        message: 'The %s is required'
+                    }
+                }
+            },
+            TEST_NAME: {
+                validators: {
+                    notEmpty: {
+                        message: 'The %s is required'
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 30,
+                        message: 'The name must be more than %s and less than %s characters long'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_]+$/,
+                        message: 'The name can only consist of alphabetical, number and underscore'
+                    }
+                }
+            },
+            TEST_DATE: {
+                validators: {
+                    notEmpty: {
+                        message: 'The date is required'
+                    },
+                    numeric: {
+                        message: 'The date must be a number'
+                    }
+                }
+            },
+            TEST_DATE2: {
+                validators: {
+                    notEmpty: {
+                        message: 'The date2 is required'
+                    },
+                    numeric: {
+                        message: 'The date2 must be a number'
+                    }
+                }
+            }
+
+        }
+    })
+});
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+/*
+(function() {
+  'use strict';
+
+  window.addEventListener('load', function() {
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+
+})();
+*/
+
+</script>
+
+<form id="formTest">
+    <div class="form-group">
+        <div class="input-group">
+            <label class="has-float-label">
+                <input name="TEST_NAME" class="form-control form-control-with-label" type="text" placeholder="First Name"/>
+                <span>First</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <button class="btn btn-standard" type="button"><i class="fa fa-home"></i></button>
+                <button class="btn btn-standard" type="button">Button</button>
+            </div>
+            <label class="has-float-label">
+                <input name="TEST_DATE" type="text" class="form-control form-control-with-label" placeholder="Dato dd-mm-yyyy" required/>
+                <span>Dato</span>
+            </label>
+            <label class="has-float-label">
+                <input name="TEST_DATE2" type="text" class="form-control form-control-with-label" placeholder="dd-mm-yyyy" required/>
+                <span>Dato2</span>
+            </label>
+            <div class="input-group-append">
+                <button class="btn btn-standard" type="button"><i class="fa fa-home"></i></button>
+                <button class="btn btn-standard" type="button">Button</button>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-standard primary" type="submit">Submit form</button>
+</form>
+
+</body>
+</html>
