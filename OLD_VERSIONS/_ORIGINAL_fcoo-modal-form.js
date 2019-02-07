@@ -24,6 +24,7 @@
                 en: "The field is required"
             },
 
+
     }
 
 
@@ -47,8 +48,8 @@ return $field.val() == 'red';
         },
 
         message: {
-            da: 'Skal være "red"',
-            en: 'Must be "red"'
+            da: 'Skal være red',
+            en: 'Must be red'
         }
 
 
@@ -59,13 +60,13 @@ return $field.val() == 'red';
     /*****************************************************************
     ******************************************************************
     Extend $.BsModalForm.prototype with version of methods
-    used for formValidation
+    working with formValidation
     ******************************************************************
-    ******************************************************************/
-	$.extend($.BsModalForm.prototype, {
+    *****************************************************************/
 
+    $.extend($.BsModalForm.prototype, {
         /*******************************************************
-        _addOnSubmit
+        _addOnSubmit (*)
         *******************************************************/
         _addOnSubmit: function( onSubmitFunc ){
 //HER            this.$form.on('submit', onSubmitFunc ); //TODO Skal denne her bibeholdes???????????
@@ -73,10 +74,10 @@ return $field.val() == 'red';
         },
 
         /*******************************************************
-        _addValidation
+        _addValidation (*)
         *******************************************************/
         _addValidation: function(){
-            //Create the formValidation
+           //Create the formValidation
             this.$form.formValidation({
                 framework: 'bootstrap4',
                 autoFocus: false,
@@ -94,39 +95,39 @@ return $field.val() == 'red';
             this.formValidation = this.$form.data('formValidation');
 
             //Add event to translate
-            this.$form.on('added.field.fv', $.proxy( this.translateMessage, this) );
+//MANGLER            this.$form.on('added.field.fv', $.proxy( this.translateMessage, this) );
 
             //Add events
-            this.$form.on('success.form.fv', $.proxy( this.onSubmit, this ));
-            this.$form.on('err.form.fv',     $.proxy( this.onError,  this )); //Not used at the moment
+//HER            this.$form.on('success.form.fv', $.proxy( this.onSubmit, this ));
 
             this.$form.on('status.field.fv',    $.proxy( this.onFieldStatus,  this ));
-            this.$form.on('err.field.fv',    $.proxy( this.onFieldError,  this )); //Not used at the moment
+
+            this.$form.on('err.form.fv',     $.proxy( this.onError,  this ));       //Not used at the moment
+            this.$form.on('err.field.fv',    $.proxy( this.onFieldError,  this ));  //Not used at the moment
         },
 
         /*******************************************************
-        _resetValidation
+        _resetValidation (*)
         *******************************************************/
         _resetValidation: function(){
             this.formValidation.resetForm(false);
         },
 
         /*******************************************************
-        _addInputValidation
+        _addInputValidation (*)
         *******************************************************/
         _addInputValidation: function( bsModalInput ){
-            //Set onChange
-            bsModalInput.getElement().on('change', $.proxy( bsModalInput.onChange, bsModalInput ));
 
+            bsModalInput.getElement().on('change', $.proxy( bsModalInput.onChange, bsModalInput )); //TODO SKAL DEN BRUGES???
 
             if (bsModalInput.options.validators){
                 var validators = {};
 
-                //this.options.validators = {validator#1: {...}, validator#2: {...},...}
+                //bsModalInput.options.validators = {validator#1: {...}, validator#2: {...},...}
                 if ($.isPlainObject(bsModalInput.options.validators))
                     validators = bsModalInput.options.validators;
                 else {
-                    //this.options.validators = string or array of string/{id, options}
+                    //bsModalInput.options.validators = string or array of string/{id, options}
                     var validatorList = $.type(bsModalInput.options.validators) == 'string' ? bsModalInput.options.validators.split(' ') : bsModalInput.options.validators;
                     $.each( validatorList, function( index, validator ){
                         if ($.type(validator) == 'string'){
@@ -139,46 +140,42 @@ return $field.val() == 'red';
                             validators[validator.id] = validator.options;
                     });
                 }
-                this.formValidation.addField( bsModalInput.options.id, {'validators': validators} );
+                this.formValidation.addField( this.options.id, {'validators': validators} );
             }
         },
 
         /*******************************************************
-        _resetInputValidation
+        _validateInput (*)
+        *******************************************************/
+        _validateInput: function( bsModalInput ){
+            this.formValidation.validateField( bsModalInput.options.id );
+        },
+
+        /*******************************************************
+        _resetInputValidation (*)
         *******************************************************/
         _resetInputValidation: function( bsModalInput ){
             this.formValidation.resetField(bsModalInput.options.id);
         },
 
         /*******************************************************
-        _enableInputValidation
+        _enableInputValidation (*)
         *******************************************************/
         _enableInputValidation: function( bsModalInput, enabled ){
             bsModalInput.getFormGroup().toggleClass('fv-do-not-validate', !enabled);
         },
 
-
         /*******************************************************
-        translateMessage(e, data) - using i18n to dynaamic translate message
+        translateMessage(e, data) - using i18n to dynamic translate message
         *******************************************************/
         translateMessage: function( event, data ){
+            console.log(event, data);
             $.each( data.options.validators, function( validator, validatorOptions ){
                 var $messageElement = data.element.parents('.form-group').find('small[data-fv-validator="'+validator+'"]'),
                     message = validatorOptions.message || messages[validator];
                 $messageElement.i18n(message);
                 validatorOptions.message = null;
             });
-        },
-
-        /*******************************************************
-        onSubmit = called when the form is valid and submitted
-        *******************************************************/
-        onSubmit: function( event/*, data*/ ){
-            this.options.onSubmit ? this.options.onSubmit( this.getValues() ) : null;
-            this.$bsModal.modal('hide');
-
-            event.preventDefault();
-            return false;
         },
 
         /*******************************************************
@@ -203,6 +200,70 @@ return $field.val() == 'red';
         onError: function( /*event, data*/ ){
         }
     });
+
+
+
+/**********************************************************************
+***********************************************************************
+RESTEN SKAL SLETTES (MÅSKE)
+***********************************************************************
+**********************************************************************/
+
+
+
+//HER        /*******************************************************
+//HER        addValidation - Add the validations - TODO
+//HER        *******************************************************/
+//HER        addValidation: function(){
+//HER            //Set onChange
+//HER            this.getElement().on('change', $.proxy( this.onChange, this ));
+//HER
+//HER
+//HER            if (this.options.validators){
+//HER                var validators = {};
+//HER
+//HER                //this.options.validators = {validator#1: {...}, validator#2: {...},...}
+//HER                if ($.isPlainObject(this.options.validators))
+//HER                    validators = this.options.validators;
+//HER                else {
+//HER                    //this.options.validators = string or array of string/{id, options}
+//HER                    var validatorList = $.type(this.options.validators) == 'string' ? this.options.validators.split(' ') : this.options.validators;
+//HER                    $.each( validatorList, function( index, validator ){
+//HER                        if ($.type(validator) == 'string'){
+//HER                            validators[validator] = {};
+//HER                            //Use message from FormValidation.Validator is exists
+//HER                            if (FormValidation.Validator[validator] && FormValidation.Validator[validator].message)
+//HER                                validators[validator].message = FormValidation.Validator[validator].message;
+//HER                        }
+//HER                        else
+//HER                            validators[validator.id] = validator.options;
+//HER                    });
+//HER                }
+//HER                this.modalForm.formValidation.addField( this.options.id, {'validators': validators} );
+//HER            }
+//HER        },
+
+//HER        /*******************************************************
+//HER        validate
+//HER        *******************************************************/
+//HER        validate: function(){
+//HER            this.modalForm.formValidation.validateField( this.options.id );
+//HER            return this;
+//HER        },
+
+//HER        /*******************************************************
+//HER        onChange
+//HER        *******************************************************/
+//HER        onChange: function(){
+//HER            this.modalForm.showOrHide( this );
+//HER        },
+
+
+//HER    }; //End of YT_BsModalInput.prototype
+
+
+
+
 }(jQuery, this, document));
 
 /*

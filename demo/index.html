@@ -10,29 +10,14 @@
 	<meta name='owner' content='FCOO'>
 
     <link  href="bower_components.css" rel="stylesheet">
-    <link  href="../src/fcoo-modal-form.css" rel="stylesheet">
-    <link  href="font-awesome.css" rel="stylesheet">
-    <style>
-        _html {
-            height  : 100%;
-            overflow: hidden;
-        }
-        _body {
-            width: 100%;
-            height: 100%;
-            width: -webkit-calc(100% - 0px);
-            height: -webkit-calc(100% - 0px);
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            position: fixed;
-        }
-    </style>
+    <!-- <link  href="../src/fcoo-modal-form.css" rel="stylesheet"> -->
+    <link  href="css/fontawesome-all.css" rel="stylesheet">
 </head>
 
 <body>
 	<script src="bower_components.js"></script>
-	<script src="../src/fcoo-modal-form.js"></script>
+    <script src="../src/fcoo-modal-form.js"></script>
+
 <script>
     window.bsIsTouch = false;
     window.bsIsTouch = (window.location.search =='?touch');
@@ -81,64 +66,50 @@
                     {text:'Reset', onClick: function(){ $testModal.setValue('formId1', -1);}      },
                     {text:'Set=2', onClick: function(){ $testModal.setValue('formId1', 'formSelect1');} }
                 ],
+formValidation: true,
                 onSubmit: function( data ){ console.log( 'SUBMIT=', data ); myData = data; },
-                content: {
-                    height: 200/16 + 'rem',
-                    scroll: true,
-                    hideNotSelectedText: true,
-                    fixed: true,
-                    type: 'tabs',
-//                    type: 'accordion',
-                    list: [
-                        {
-                            icon: 'fa-home',
-                            text:{da:'Hjem', en:'Home'},
-                            content: 'FIRST Sint sit mollit irure quis est nostrud cillum consequat Lorem esse do quis dolor esse fugiat sunt do. Eu ex commodo veniam Lorem aliquip laborum occaecat qui Lorem esse mollit dolore anim cupidatat. Deserunt officia id Lorem nostrud aute id commodo elit eiusmod enim irure amet eiusmod qui reprehenderit nostrud tempor. FIRST Sint sit mollit irure quis est nostrud cillum consequat Lorem esse do quis dolor esse fugiat sunt do. Eu ex commodo veniam Lorem aliquip laborum occaecat qui Lorem esse mollit dolore anim cupidatat. Deserunt officia id Lorem nostrud aute id commodo elit eiusmod enim irure amet eiusmod qui reprehenderit nostrud tempor. FIRST Sint sit mollit irure quis est nostrud cillum consequat Lorem esse do quis dolor esse fugiat sunt do. Eu ex commodo veniam Lorem aliquip laborum occaecat qui Lorem esse mollit dolore anim cupidatat. Deserunt officia id Lorem nostrud aute id commodo elit eiusmod enim irure amet eiusmod qui reprehenderit nostrud tempor. FIRST Sint sit mollit irure quis est nostrud cillum consequat Lorem esse do quis dolor esse fugiat sunt do. Eu ex commodo veniam Lorem aliquip laborum occaecat qui Lorem esse mollit dolore anim cupidatat. Deserunt officia id Lorem nostrud aute id commodo elit eiusmod enim irure amet eiusmod qui reprehenderit nostrud tempor.'
-                        },
-                        {
-                            _selected: true,
-                            icon: 'fa-globe',
-                            title:{da:'Tidszone', en:'Time zone'},
-                            content: [
-                                {
-                                    id:'mySelection', type:'checkbox', text: 'Vælg mig'
-                                },
-                                {
-                                    id:'formId2', type:'input',placeholder:'Placeholder (INPUT)', label: 'Label (NIELS)', after : {type:'button', text:{da:'kr.', en:'£'}}, before: {type:'button', icon:'fa-calculator'}
-                                },
-                                {
-                                    id:'formId1', type: 'select', _selectedId: 'formSelect4', placeholder:"Placeholder", label:'Label',
-                                    items:[
-                                        {id:'formSelect1', icon:'fa-home', text: 'Davs'},
-                                        {id:'formSelect2', text:'Item 2'},
-                                        {id:'formSelect3', text:'Item 3 SKIDE GODT'},
-                                        {id:'formSelect4', text:'Item 4'},
-                                        {id:'formSelect5', text:'Item 5'}
-                                    ],
-                                    showWhen: {'mySelection': false }
+                onChanging: function( data ){ console.log( 'CHANGING=', data ); },
 
-                                },
-                                {
-                                    id:'formId2-1', type: 'select', _selectedId: 'formSelect4', placeholder:"Placeholder", label:'Label',
-                                    items:[
-                                        {id:'formSelect1', icon:'fa-home', text: 'Davs'},
-                                        {id:'formSelect2', text:'Item 2'},
-                                        {id:'formSelect3', text:'Item 3 SKIDE GODT'},
-                                        {id:'formSelect4', text:'Item 4'},
-                                        {id:'formSelect5', text:'Item 5'}
-                                    ]
-                                },
-                                {
-                                    id:'formId3', type:'input',placeholder:'Placeholder (INPUT)', label: 'Label (NIELS)', after : {type:'button', text:{da:'kr.', en:'£'}}, before: {type:'button', icon:'fa-calculator'}
-                                },
-                                {
-                                    id:'formId4', type:'input',placeholder:'Placeholder (INPUT)', label: 'Label (NIELS)', after : {type:'button', text:{da:'kr.', en:'£'}}, before: {type:'button', icon:'fa-calculator'}
-                                },
-                            ]
-                        }
-                    ]
-                }//end of content
+                scroll: true,
+                fixed: true,
+                content: [
+                    {
+                        id:'formId1', type:'checkbox', text: 'Vælg mig'
+                    },
+                    {
+                        id:'formId2', validators: 'notEmpty MYvalidatorName', type:'input',placeholder:'Placeholder (formId2)', label: 'Label (formId2)', after : {type:'button', text:{da:'kr.', en:'£'}}, before: {type:'button', icon:'fa-calculator'}
+                    },
+                    {
+                        id:'formId3', type: 'select', validators: 'notEmpty', _selectedId: 'formSelect4', placeholder:"Placeholder (formId3)", label:'Label (formId3)',
+                        items:[
+                            {id:'formSelect1', icon:'fa-home', text: 'Davs'},
+                            {id:'formSelect2', text:'Item 2'},
+                            {id:'formSelect3', text:'Item 3 SKIDE GODT'},
+                            {id:'formSelect4', text:'Item 4'},
+                            {id:'formSelect5', text:'Item 5'}
+                        ],
+                        showWhen: {'formId1': false }
+                    },
+                    {
+                        id:'formId4', type: 'select', _selectedId: 'formSelect4', placeholder:"Placeholder (formId4)", label:'Label (formId4)',
+                        items:[
+                            {id:'formSelect1', icon:'fa-home', text: 'Davs'},
+                            {id:'formSelect2', text:'Item 2'},
+                            {id:'formSelect3', text:'Item 3 SKIDE GODT'},
+                            {id:'formSelect4', text:'Item 4'},
+                            {id:'formSelect5', text:'Item 5'}
+                        ]
+                    },
+                    {
+                        id:'formId5', type:'input',placeholder:'Placeholder (formId5)', label: 'Label (formId5)', after : {type:'button', text:{da:'kr.', en:'£'}}, before: {type:'button', icon:'fa-calculator'}
+                    },
+                    {
+                        id:'formId6', type:'input',placeholder:'Placeholder (formId6)', label: 'Label (formId6)', after : {type:'button', text:{da:'kr.', en:'£'}}, before: {type:'button', icon:'fa-calculator'}
+                    },
+                ]
             }); //end of $.bsModalForm(
+
+
             $testModal.edit( myData );
 
 //END

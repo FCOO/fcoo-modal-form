@@ -3,7 +3,8 @@
 
 
 ## Description
-This package is used for...
+Using jquery-bootstrap and fcoo-form-validation to create modal-forms
+
 
 ## Installation
 ### bower
@@ -15,7 +16,7 @@ http://FCOO.github.io/fcoo-modal-form/demo/
 ## Usage
 ```var myFcooModalForm = new FcooModalForm( options );```
 
-
+<!-- 
 ### options
 | Id | Type | Default | Description |
 | :--: | :--: | :-----: | --- |
@@ -27,7 +28,7 @@ http://FCOO.github.io/fcoo-modal-form/demo/
     .methods1( arg1, arg2,...): Do something
     .methods2( arg1, arg2,...): Do something else
 
-
+ -->
 
 ## Copyright and License
 This plugin is licensed under the [MIT license](https://github.com/FCOO/fcoo-modal-form/LICENSE).
@@ -37,6 +38,3 @@ Copyright (c) 2018 [FCOO](https://github.com/FCOO)
 ## Contact information
 
 Niels Holt nho@fcoo.dk
-
-
-## Credits and acknowledgements
