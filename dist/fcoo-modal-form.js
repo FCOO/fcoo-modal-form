@@ -200,7 +200,6 @@ uri: {default: "Please enter a valid URI"}
             this.$form.on('added.field.fv', $.proxy( this.updateBsMessage, this) );
 
             //Add events
-            this.$form.on('success.form.fv', $.proxy( this.onSubmit, this ));
             this.$form.on('err.form.fv',     $.proxy( this.onError,  this )); //Not used at the moment
 
             this.$form.on('status.field.fv', $.proxy( this.onFieldStatus,  this ));
