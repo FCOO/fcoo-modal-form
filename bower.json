@@ -1,6 +1,6 @@
 {
   "name": "fcoo-modal-form",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "homepage": "https://github.com/FCOO/fcoo-modal-form",
   "authors": [
     "Niels Holt"
@@ -17,7 +17,7 @@
   "dependencies": {
     "jquery": "latest",
     "fcoo-form-validation": "fcoo/fcoo-form-validation#^0.9.1",
-    "jquery-bootstrap": "fcoo/jquery-bootstrap#^2.0.0",
+    "jquery-bootstrap": "fcoo/jquery-bootstrap#^3.0.0",
     "fcoo-fontawesome": "fcoo/fcoo-fontawesome#latest",
     "fcoo-settings": "fcoo/fcoo-settings#latest"
   },
